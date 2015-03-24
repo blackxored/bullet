@@ -13,7 +13,9 @@ module Bullet
     end
 
     def add(value)
-      @collection << value
+      ActiveSupport::Notifications.instrument('bullet', detection: value) do
+        @collection << value
+      end
     end
 
     def notifications_present?
